@@ -10,7 +10,7 @@ import {
 
 import Home from "./Pages/Home";
 import Categories from "./Pages/categories";
-import Religious from "./Pages/Religious";
+import Religious from "./Pages/religious";
 import Historical from "./Pages/Historical";
 import Cultural from "./Pages/Cultural";
 import Entertainment from "./Pages/Entertainment";
