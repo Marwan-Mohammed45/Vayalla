@@ -9,7 +9,7 @@ import {
 } from "react-router-dom";
 
 import Home from "./Pages/Home";
-import Categories from "./Pages/Categories";
+import Categories from "./Pages/categories";
 import Religious from "./Pages/Religious";
 import Historical from "./Pages/Historical";
 import Cultural from "./Pages/Cultural";
