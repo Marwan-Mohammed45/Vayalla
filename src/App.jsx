@@ -20,9 +20,9 @@ import Navbar from "./componets/Navbar";
 import Footer from "./componets/Footer";
 import Faq from "./Pages/Faq";
 
-import Makka from "./Pages/Makka";
+import Makka from "./Pages/makka";
 import Madina from "./Pages/Madina";
-import Uhed from "./Pages/JabalDetail";
+import Uhed from "./Pages/jabalDetail";
 import Saleh from "./Pages/salehdetails";
 import Masmak from "./Pages/masmakdetail";
 import Qarah from "./Pages/Qarah";
