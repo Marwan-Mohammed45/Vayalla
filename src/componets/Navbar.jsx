@@ -9,7 +9,6 @@ const Navbar = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  // العناصر مع الأيقونات الجديدة
   const navItems = [
     { 
       name: "Home", 
@@ -42,15 +41,46 @@ const Navbar = () => {
 
   // Animation variants
   const menuVariants = {
-    hidden: { x: "100%" },
+    hidden: { 
+      x: "100%",
+      opacity: 0,
+      transition: { 
+        type: "spring", 
+        stiffness: 300, 
+        damping: 30,
+        when: "afterChildren"
+      }
+    },
     visible: { 
       x: 0,
-      transition: { type: "spring", stiffness: 300, damping: 25 }
+      opacity: 1,
+      transition: { 
+        type: "spring", 
+        stiffness: 300, 
+        damping: 25,
+        when: "beforeChildren",
+        staggerChildren: 0.1
+      }
     },
     exit: { 
       x: "100%",
-      transition: { duration: 0.2 }
+      opacity: 0,
+      transition: { 
+        duration: 0.3,
+        ease: "easeInOut",
+        when: "afterChildren"
+      }
     }
+  };
+
+  const itemVariants = {
+    hidden: { x: 20, opacity: 0 },
+    visible: { 
+      x: 0, 
+      opacity: 1,
+      transition: { type: "spring", stiffness: 300 }
+    },
+    exit: { x: 20, opacity: 0 }
   };
 
   const overlayVariants = {
@@ -58,12 +88,14 @@ const Navbar = () => {
     visible: { 
       opacity: 1,
       backdropFilter: "blur(4px)",
-      WebkitBackdropFilter: "blur(4px)"
+      WebkitBackdropFilter: "blur(4px)",
+      transition: { duration: 0.3 }
     },
     exit: { 
       opacity: 0,
       backdropFilter: "blur(0px)",
-      WebkitBackdropFilter: "blur(0px)"
+      WebkitBackdropFilter: "blur(0px)",
+      transition: { duration: 0.3 }
     }
   };
 
@@ -107,7 +139,7 @@ const Navbar = () => {
 
         {/* Mobile menu button - right side */}
         <button 
-          className="md:hidden text-white focus:outline-none"
+          className="md:hidden text-white focus:outline-none transition-transform duration-200 hover:scale-110"
           onClick={toggleMenu}
           aria-label="Toggle menu"
         >
@@ -127,7 +159,6 @@ const Navbar = () => {
               animate="visible"
               exit="exit"
               variants={overlayVariants}
-              transition={{ duration: 0.3 }}
               className="fixed inset-0 bg-black/50 z-40 md:hidden"
               onClick={toggleMenu}
             />
@@ -145,16 +176,17 @@ const Navbar = () => {
                   radial-gradient(circle at top left, rgba(0, 0, 0, 0.3), transparent 40%),
                   radial-gradient(circle at bottom right, rgba(0, 0, 0, 0.3), transparent 40%)
                 `,
-                borderLeft: "1px solid rgba(0, 0, 0, 0.1)"
+                borderLeft: "1px solid rgba(255, 255, 255, 0.1)"
               }}
             >
-              <div 
+              <motion.div 
                 className="p-4 flex justify-between items-center"
                 style={{ borderBottom: "1px solid rgba(255, 255, 255, 0.1)" }}
+                variants={itemVariants}
               >
                 <span className="text-xl font-bold text-white">Menu</span>
                 <button 
-                  className="text-gray-400 hover:text-white focus:outline-none"
+                  className="text-gray-400 hover:text-white focus:outline-none transition-transform duration-200 hover:scale-110"
                   onClick={toggleMenu}
                   aria-label="Close menu"
                 >
@@ -162,25 +194,38 @@ const Navbar = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 </button>
-              </div>
+              </motion.div>
 
               <div className="flex flex-col h-full p-4 space-y-2 overflow-y-auto">
                 {/* Navigation Links */}
-                {navItems.map((item) => (
-                  <Link
+                {navItems.map((item, index) => (
+                  <motion.div
                     key={item.name}
-                    to={item.path}
-                    className="flex items-center space-x-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-white/5 rounded-lg transition-all duration-200"
-                    onClick={toggleMenu}
+                    variants={itemVariants}
+                    custom={index}
+                    initial="hidden"
+                    animate="visible"
+                    exit="exit"
+                    transition={{ delay: index * 0.05 }}
                   >
-                    <span className="text-white/70">
-                      {item.icon}
-                    </span>
-                    <span className="text-sm sm:text-base">{item.name}</span>
-                  </Link>
+                    <Link
+                      to={item.path}
+                      className="flex items-center space-x-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-white/5 rounded-lg transition-all duration-200"
+                      onClick={toggleMenu}
+                    >
+                      <span className="text-white/70">
+                        {item.icon}
+                      </span>
+                      <span className="text-sm sm:text-base">{item.name}</span>
+                    </Link>
+                  </motion.div>
                 ))}
 
-                <div className="my-2" style={{ borderTop: "1px solid rgba(255, 255, 255, 0.1)" }}></div>
+                <motion.div 
+                  className="my-2" 
+                  style={{ borderTop: "1px solid rgba(255, 255, 255, 0.1)" }}
+                  variants={itemVariants}
+                />
               </div>
             </motion.div>
           </>
