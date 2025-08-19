@@ -1,6 +1,6 @@
 import React from "react";
 import {
-  createBrowserRouter,
+  createHashRouter,
   createRoutesFromElements,
   Route,
   RouterProvider,
@@ -36,7 +36,7 @@ import Rub from "./Pages/Rub ";
 import Farasan from "./Pages/Farasan";
 import AlSoudah from "./Pages/Al-Soudah";
 
-// Layout داخل App.jsx مع التحكم في إظهار الفوتر
+// Layout مع التحكم في إظهار الفوتر
 const Layout = () => {
   const location = useLocation();
 
@@ -45,27 +45,27 @@ const Layout = () => {
     "/faq",
     "/religious",
     "/historical",
-    "/Natural",
-    "/Cultural",
-    "/Entertainment",
+    "/natural",
+    "/cultural",
+    "/entertainment",
     "/categories",
-    "/Madena",
-    "/JabalDetail",
+    "/madena",
+    "/jabalDetail",
     "/masmakdetail",
     "/salehdetails",
-    "/Qarah",
+    "/qarah",
     "/museum",
     "/ithra",
     "/diriyah",
-    "/Riyadhzoo",
-    "/Allshalall",
+    "/riyadhzoo",
+    "/allshalall",
     "/sportcity",
     "/rub",
     "/farasan",
     "/alsoudah"
   ];
 
-  const shouldHideFooter = hideFooterRoutes.includes(location.pathname);
+  const shouldHideFooter = hideFooterRoutes.includes(location.pathname.toLowerCase());
 
   return (
     <>
@@ -76,7 +76,8 @@ const Layout = () => {
   );
 };
 
-const router = createBrowserRouter(
+// استبدال createBrowserRouter بـ createHashRouter
+const router = createHashRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />}>
       <Route index element={<Home />} />
@@ -87,16 +88,16 @@ const router = createBrowserRouter(
       <Route path="entertainment" element={<Entertainment />} />
       <Route path="natural" element={<Natural />} />
       <Route path="makka" element={<Makka />} />
-      <Route path="Madena" element={<Madina />} />
-      <Route path="JabalDetail" element={<Uhed />} />
+      <Route path="madena" element={<Madina />} />
+      <Route path="jabalDetail" element={<Uhed />} />
       <Route path="masmakdetail" element={<Saleh />} />
       <Route path="salehdetails" element={<Masmak />} />
-      <Route path="Qarah" element={<Qarah />} />
+      <Route path="qarah" element={<Qarah />} />
       <Route path="museum" element={<Museum />} />
       <Route path="ithra" element={<Ithara />} />
       <Route path="diriyah" element={<Diriyah />} />
-      <Route path="Riyadhzoo" element={<Riyadzoo />} />
-      <Route path="Allshalall" element={<Alshalall />} />
+      <Route path="riyadhzoo" element={<Riyadzoo />} />
+      <Route path="allshalall" element={<Alshalall />} />
       <Route path="sportcity" element={<Sportcity />} />
       <Route path="rub" element={<Rub />} />
       <Route path="farasan" element={<Farasan />} />
